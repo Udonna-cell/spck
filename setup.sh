@@ -10,7 +10,7 @@ PACKAGE_NAME=("figlet") # write the names of commands you need to check for
 for package in "${PACKAGE_NAME[@]}"; do
     INSTALLED_PACKAGE=$(tr "/" " " <<<"$(pkg list-installed)" | cut -d " " -f 1)
     # Check if the package is installed
-    if "$INSTALLED_PACKAGE" | grep -q "^$PACKAGE_NAME\$"; then
+    if echo "$INSTALLED_PACKAGE" | grep -q "^$PACKAGE_NAME\$"; then
         echo "$PACKAGE_NAME is installed."
     else
         echo "$PACKAGE_NAME is not installed."
