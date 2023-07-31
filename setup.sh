@@ -15,7 +15,7 @@ for package in "${PACKAGE_NAME[@]}"; do
     else
         echo "$package is not installed."
     fi
-done
+done 2> "tmp/error.txt" 
 
 if [ -d "repo" ]; then
     echo "found and it is a folder"
