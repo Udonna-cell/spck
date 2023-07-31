@@ -4,6 +4,13 @@ clear
 figlet "Spck cpanel"
 echo "setting spck cli"
 
+if [ -d "repo" ] && [ -d "tmp" ]; then
+    echo "found and it is a folder"
+else
+    # echo "not found"
+    mkdir repo tmp
+fi
+
 # Replace 'package_name' with the name of the package you want to check
 PACKAGE_NAME=("figlet" "tr" "pv") # write the names of commands you need to check for
 
@@ -16,10 +23,3 @@ for package in "${PACKAGE_NAME[@]}"; do
         echo "$package is not installed."
     fi
 done 2> "tmp/error.txt" 
-
-if [ -d "repo" ]; then
-    echo "found and it is a folder"
-else
-    # echo "not found"
-    mkdir repo
-fi
