@@ -5,7 +5,7 @@ figlet "Spck cpanel"
 echo "setting spck cli"
 
 # Replace 'package_name' with the name of the package you want to check
-PACKAGE_NAME=("figlet") # write the names of commands you need to check for
+PACKAGE_NAME=("figlet" "tr" "stanley") # write the names of commands you need to check for
 
 for package in "${PACKAGE_NAME[@]}"; do
     INSTALLED_PACKAGE=$(tr "/" " " <<<"$(pkg list-installed)" | cut -d " " -f 1)
