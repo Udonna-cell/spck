@@ -8,7 +8,11 @@ if [ -d "repo" ] && [ -d "tmp" ]; then
     echo "found and it is a folder"
 else
     # echo "not found"
-    mkdir repo tmp
+    if [[ -d "repo" ]]; then
+        mkdir repo
+    else
+        mkdir tmp
+    fi
 fi
 
 # Replace 'package_name' with the name of the package you want to check
