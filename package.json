@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -10,6 +11,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "log-update": "^5.0.1"
+    "chalk": "^5.3.0",
+    "log-update": "^5.0.1",
+    "prompts": "^2.4.2"
   }
 }
