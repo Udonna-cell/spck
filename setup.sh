@@ -21,6 +21,6 @@ for package in "${PACKAGE_NAME[@]}"; do
     if echo "$INSTALLED_PACKAGE" | grep -q "$package"; then
         echo "$package is installed."
     else
-        echo "$package is not installed."
+        pkg install $package
     fi
 done 2>"tmp/error.txt"
