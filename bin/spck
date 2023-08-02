@@ -1,0 +1,10 @@
+#!/bin/bash
+
+# checking if a user is calling spck on a good location
+location=$(tr "/" "\n" <<<"$PWD")
+
+if [[ $(echo "$location" | grep "spck") = "spck" ]]; then
+    echo "can we talk"
+else
+    echo "we can't talk"
+fi
