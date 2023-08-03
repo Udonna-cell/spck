@@ -1,0 +1,10 @@
+#!/bin/bash
+
+if [[ "$1" = "$PWD" ]]; then
+  if [[ -d "repo" ]]; then
+    cp -r "$HOME/storage/shared/Android/data/io.spck/files/"* "repo/"
+    echo "present"
+  fi
+else
+  echo "we are some where in spck"
+fi
