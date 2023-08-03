@@ -25,3 +25,6 @@ for package in "${PACKAGE_NAME[@]}"; do
         pkg install "$package"
     fi
 done 2>"tmp/error.txt"
+
+# make all files in the bin folder executable
+chmod 777 bin/*
