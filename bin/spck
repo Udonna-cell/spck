@@ -16,20 +16,44 @@ if [[ $(echo "$location" | grep "spck") = "spck" ]]; then
   # echo "$location"
   
   
+  # checking it's argument 
+  # checking for argument with flags '-'
+  if [[ $(echo "$1" | cut -c 1) = "-"  &&  $(echo "$1" | cut -c 2) = "-" ]]; then
   
-  case $1 in
-    delete)
-      echo "removes file or folder on both spck and termux";;
-    create)
-      echo "create file or folder on both spck and termux";;
-    push)
-      echo "push update to spck";;
-    pull)
-      echo "pulling..."
-      . "/$home/bin/pull" "/$home";;
-    *)
-      echo "do you need help"
-  esac
+    # breaking argument flags e.g --pull=stable -> '--pull' 'stable'
+    flag_break=()
+    for flag_part in $(tr "=" " " <<<"$1") ; do
+      flag_break=(${flag_break[@]} "$flag_part")
+    done
+    flag_values="${flag_break[@]: 1}"
+    
+    case $(tr "=" " " <<<"$1" | cut -d " " -f 1) in
+      --pull)
+        if [[ -z "$flag_values" ]]; then
+          echo "empty"
+        else
+          # echo "variable is not empty"
+          . "/$home/bin/pull"  "/$home" "$flag_values"
+        fi
+        ;;
+      *)
+        echo "not complete flag"
+    esac
+  else
+    case $1 in
+      delete)
+        echo "removes file or folder on both spck and termux";;
+      create)
+        echo "create file or folder on both spck and termux";;
+      push)
+        echo "push update to spck";;
+      pull)
+        echo "pulling..."
+        . "/$home/bin/pull" "/$home";;
+      *)
+        echo "do you need help"
+    esac
+  fi
 else
   echo "we can't talk"
 fi
