@@ -1,10 +1,43 @@
 #!/bin/bash
 
+# getting the parent location in the command pwd.
+    locate_parent=$(pwd)
+    locate_parent=$(tr "/" " " <<<"$locate_parent")
+    locate_parent=($locate_parent)
+# looping through the pwd command results to get to the parent
+
+
+
+
 if [[ "$1" = "$PWD" ]]; then
   if [[ -d "repo" ]]; then
+    echo "updating the spck repo with the spck app"
     cp -r "$HOME/storage/shared/Android/data/io.spck/files/"* "repo/"
-    echo "present"
   fi
 else
-  echo "we are some where in spck"
+  # echo "we are some where in spck"
+  # control the direction base on argument number
+  # echo "$2"
+  if [[ "$#" -eq 2 ]]; then
+    # cheking if the second argument contain a '.' or a directory name
+    if [[ "$2" = "." ]]; then
+      previous=""
+      for folder in ${locate_parent[@]} ; do
+        # getting the repository correct parent relative to the repo directory e.g repo/cli repo/bash
+        if [[ "$previous" = "repo" ]]; then
+          echo "pulling update to the current repo :-> $folder"
+          cp -r "$HOME/storage/shared/Android/data/io.spck/files/$folder/"* "$1/$previous/$folder"
+        fi
+        previous="$folder"
+      done
+      echo -e "we are in the ${locate_parent[@]: -1}\non using --pull=.\nMove into a repository in repo and see us in action"
+    else
+      echo "pulling update to $2 in repo"
+      if [[ "${locate_parent[@]: -1}" = "repo" ]]; then
+        cp -r "$HOME/storage/shared/Android/data/io.spck/files/$2/"* "$2/"
+      fi
+      
+    fi
+    # cp -r "$HOME/storage/shared/Android/data/io.spck/files/$2/" "$PWD/"
+  fi
 fi
