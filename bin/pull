@@ -1,13 +1,14 @@
 #!/bin/bash
 
 # getting the parent location in the command pwd.
-    locate_parent=$(pwd)
-    locate_parent=$(tr "/" " " <<<"$locate_parent")
-    locate_parent=($locate_parent)
+locate_parent=$(pwd)
+locate_parent=$(tr "/" " " <<<"$locate_parent")
+locate_parent=("$locate_parent")
 # looping through the pwd command results to get to the parent
 
-
-
+name_arument() {
+  
+}
 
 if [[ "$1" = "$PWD" ]]; then
   if [[ -d "repo" ]]; then
@@ -22,7 +23,7 @@ else
     # cheking if the second argument contain a '.' or a directory name
     if [[ "$2" = "." ]]; then
       previous=""
-      for folder in ${locate_parent[@]} ; do
+      for folder in ${locate_parent[@]}; do
         # getting the repository correct parent relative to the repo directory e.g repo/cli repo/bash
         if [[ "$previous" = "repo" ]]; then
           echo "pulling update to the current repo :-> $folder"
@@ -36,7 +37,7 @@ else
       if [[ "${locate_parent[@]: -1}" = "repo" ]]; then
         cp -r "$HOME/storage/shared/Android/data/io.spck/files/$2/"* "$2/"
       fi
-      
+
     fi
     # cp -r "$HOME/storage/shared/Android/data/io.spck/files/$2/" "$PWD/"
   fi
