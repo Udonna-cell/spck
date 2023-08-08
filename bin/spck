@@ -4,6 +4,8 @@
 location=$(tr "/" "\n" <<<"$PWD")
 home=()
 if [[ $(echo "$location" | grep "spck") = "spck" ]]; then
+  # we are in the spck
+  # Getting the home location of the spck cli
   for map in $location ; do
     if [[ "$map" = "spck" ]]; then
       home=(${home[@]} "$map")
@@ -13,7 +15,6 @@ if [[ $(echo "$location" | grep "spck") = "spck" ]]; then
     fi
   done
   home=$(tr " " "/" <<<"${home[@]}")
-  # echo "$location"
   
   
   # checking it's argument 
@@ -29,6 +30,7 @@ if [[ $(echo "$location" | grep "spck") = "spck" ]]; then
     
     case $(tr "=" " " <<<"$1" | cut -d " " -f 1) in
       --pull)
+        # checking if the user input is empty
         if [[ -z "$flag_values" ]]; then
           echo "empty"
         else
@@ -48,12 +50,13 @@ if [[ $(echo "$location" | grep "spck") = "spck" ]]; then
       push)
         echo "push update to spck";;
       pull)
-        echo "pulling..."
+        # echo "pulling..."
         . "/$home/bin/pull" "/$home";;
       *)
         echo "do you need help"
     esac
   fi
 else
+  # we are calling outside of spck
   echo "we can't talk"
 fi
