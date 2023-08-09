@@ -29,6 +29,15 @@ if [[ $(echo "$location" | grep "spck") = "spck" ]]; then
     flag_values="${flag_break[@]: 1}"
     
     case $(tr "=" " " <<<"$1" | cut -d " " -f 1) in
+      --push)
+         # checking if the user input is empty
+        if [[ -z "$flag_values" ]]; then
+          echo "empty"
+        else
+          # echo "variable is not empty"
+          . "/$home/bin/push"  "/$home" "$flag_values"
+        fi
+        ;;
       --pull)
         # checking if the user input is empty
         if [[ -z "$flag_values" ]]; then
@@ -48,7 +57,8 @@ if [[ $(echo "$location" | grep "spck") = "spck" ]]; then
       create)
         echo "create file or folder on both spck and termux";;
       push)
-        echo "push update to spck";;
+        echo "push update to spck"
+        . "/$home/bin/push" "/$home";;
       pull)
         # echo "pulling..."
         . "/$home/bin/pull" "/$home";;

@@ -1,0 +1,84 @@
+#!/bin/bash
+
+# getting the parent location in the command pwd.
+locate_parent=$(pwd)
+locate_parent=$(tr "/" " " <<<"$locate_parent")
+locate_parent=("$locate_parent")
+# looping through the pwd command results to get to the parent
+previous=""
+ workspace=()
+for folder in ${locate_parent[@]}; do
+  # getting the repository correct parent relative to the repo directory e.g repo/cli repo/bash
+  if [[ "$previous" = "repo" ]]; then
+    workspace=("${workspace[@]}" "$folder")
+    continue
+  fi
+  previous="$folder"
+done
+# echo "${workspace[@]}"
+
+
+# name_arument() {
+  
+# }
+
+if [[ "$1" = "$PWD" ]]; then
+  if [[ "$#" -eq 2 ]]; then
+    echo "flagged argument"
+    echo -e "unable to find $2 in your current location\nYou are not calling the command from the spck repo directory"
+  else
+    echo -e "This argument was to update your project parent folder relative to the spck repo\nBut you are not calling the command in the repo directory, so we are updating the entire repo"
+    echo "updating the spck repo with the spck editor app"
+    cp -r "repo/"* "$HOME/storage/shared/Android/data/io.spck/files/"
+  fi
+else
+  # echo "$1"
+  # echo "we are some where in spck"
+  # control the direction base on argument number
+  # echo "$2"
+  # cheking if call is a flagged argument
+  if [[ "$#" -eq 2 ]]; then
+    # cheking if the second argument contain a '.' or a directory name
+    if [[ "$2" = "." ]]; then
+      echo "pushing update to the current repo in spck editor :-> ${workspace[@]: -1}"
+      if [[ -d "$HOME/storage/shared/Android/data/io.spck/files/$(tr " " "/" <<<"${workspace[@]}")/" ]]; then
+        echo "ffound"
+      else
+        echo "missing $(tr " " "/" <<<"${workspace[@]}")"
+        mkdir "$HOME/storage/shared/Android/data/io.spck/files/$(tr " " "/" <<<"${workspace[@]}")/"
+      fi
+      cp -r "$1/$previous/$(tr " " "/" <<<"${workspace[@]}")/"* "$HOME/storage/shared/Android/data/io.spck/files/$(tr " " "/" <<<"${workspace[@]}")/"
+      # echo -e "we are in the ${locate_parent[@]: -1}\non using --pull=.\nMove into a repository in repo and see us in action"
+    else
+      echo "pushing update to $2 in the current repo"
+      # echo "${workspace[@]}"
+      if [[ -d "$HOME/storage/shared/Android/data/io.spck/files/$(tr " " "/" <<<"${workspace[@]}")/$2/" ]]; then
+        echo "found"
+      else
+        echo "missing $2"
+        mkdir "$HOME/storage/shared/Android/data/io.spck/files/$(tr " " "/" <<<"${workspace[@]}")/$2/"
+      fi
+      cp -r "$1/$previous/$(tr " " "/" <<<"${workspace[@]}")/$2/"* "$HOME/storage/shared/Android/data/io.spck/files/$(tr " " "/" <<<"${workspace[@]}")/$2/"
+      # if [[ "${locate_parent[@]: -1}" = "repo" ]]; then
+      #   cp -r "$HOME/storage/shared/Android/data/io.spck/files/$2/"* "$2/"
+      # fi
+
+    fi
+      # echo "pushing update to "
+    # cp -r "$HOME/storage/shared/Android/data/io.spck/files/$2/" "$PWD/"
+  else
+    if [[ "$1/repo" = "$PWD" ]]; then
+      echo "pushing the project root directory update (repo)"
+      cp -r "$1/$previous/"* "$HOME/storage/shared/Android/data/io.spck/files/"
+    else
+      echo "pushing the project root directory update (${workspace[0]})"
+      if [[ -d "$HOME/storage/shared/Android/data/io.spck/files/${workspace[0]}/" ]]; then
+        echo "found"
+      else
+        echo "missing ${workspace[0]}"
+        mkdir "$HOME/storage/shared/Android/data/io.spck/files/${workspace[0]}/"
+      fi
+      cp -r "$1/$previous/${workspace[0]}/"* "$HOME/storage/shared/Android/data/io.spck/files/${workspace[0]}/"
+    fi
+  fi
+fi
