@@ -1,7 +1,7 @@
 #!/bin/bash
 
 clear
-figlet "Spck cpanel"
+figlet "Spck CLI"
 echo "setting spck cli"
 
 if [[ ! -d "repo" ]]; then
