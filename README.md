@@ -41,3 +41,12 @@ spck --pull=todo-app
 # Or pull the parent of the current folder
 spck --pull=.
 ```
+### push (to send update)
+The "push" command in spck has two types of arguments: named and flagged. It is used to send updates to the spck editor.
+
+- The "PUSH named" command sends updates from the project's root directory to the spck editor using the command `spck push`. For instance, if you're in the "app" repository within the spck repo, running the command will send updates for the entire "app" project to the spck editor.
+
+- The "push flagged" command allows pushing updates for a specific repository directory specified by the user input. For example, using the command `spck --push=src` will only send updates for the "src" folder present in the working directory.
+
+This facilitates targeted updates to the spck editor based on project needs.
+
