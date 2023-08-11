@@ -29,6 +29,24 @@ if [[ $(echo "$location" | grep "spck") = "spck" ]]; then
     flag_values="${flag_break[@]: 1}"
     
     case $(tr "=" " " <<<"$1" | cut -d " " -f 1) in
+      --delete)
+         # checking if the user input is empty
+        if [[ -z "$flag_values" ]]; then
+          echo "empty"
+        else
+          # echo "variable is not empty"
+          . "/$home/bin/delete"  "/$home" "$flag_values"
+        fi
+        ;;
+      --create)
+         # checking if the user input is empty
+        if [[ -z "$flag_values" ]]; then
+          echo "empty"
+        else
+          # echo "variable is not empty"
+          . "/$home/bin/create"  "/$home" "$flag_values"
+        fi
+        ;;
       --push)
          # checking if the user input is empty
         if [[ -z "$flag_values" ]]; then
