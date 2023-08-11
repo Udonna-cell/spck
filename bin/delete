@@ -1,0 +1,41 @@
+#!/bin/bash
+
+echo "creating..."
+location=($(tr "/" " " <<<"$PWD"))
+workspace=()
+previous=""
+for folder in ${location[@]} ; do
+  #statements
+  if [[ $previous = "spck" ]]; then
+    workspace=(${workspace[@]} "$folder")
+    continue
+  fi
+  previous="$folder"
+done
+
+# echo $1
+# echo $2
+# echo ${workspace[@]}
+# echo ${location[@]}
+# checking for flagged argument
+if [[ $# -eq 2 ]]; then
+  if [[ ${#workspace[@]} -eq 1 ]]; then
+    #statements
+    if [[ -d "$2" ]]; then
+      rm -rf "$2" "$HOME/storage/shared/Android/data/io.spck/files/$2"
+    else
+      rm "$2" "$HOME/storage/shared/Android/data/io.spck/files/$2"
+    fi
+  
+  else
+    rm -rf "$2" "$HOME/storage/shared/Android/data/io.spck/files/${workspace[1]}/$2"
+  fi
+  
+fi
+
+
+
+
+
+
+
