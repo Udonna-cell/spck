@@ -1,13 +1,17 @@
 {
-  "name": "spck",
+  "name": "spck-cli",
   "version": "2.0.0",
-  "description": "",
+  "description": "This is a spck cli tool to work with the termux terminal",
   "main": "index.js",
   "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": [],
+  "keywords": [
+    "spck",
+    "cli",
+    "termux"
+  ],
   "author": "",
   "license": "ISC",
   "dependencies": {
