@@ -4,6 +4,10 @@
   "description": "This is a spck cli tool to work with the termux terminal",
   "main": "index.js",
   "type": "module",
+  "bin": {
+    "hi": "bin/index.js",
+    "setup": "bin/setup.js"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
